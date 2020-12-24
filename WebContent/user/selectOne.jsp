@@ -5,6 +5,7 @@
 <%@ include file = "../layout/header.jsp" %>
 
 <h1>회원정보 보기</h1>
+
 <table border = "1">
 <tr>
 <th>번호</th>
@@ -19,6 +20,11 @@
 <td>${user.email}</td>
 </tr>
 </table>
+<form action = "user?gubun=deleteProc" method = "post">
+<input type = "hidden" name = "id"  value = "${user.id}" />
+<button>삭제</button>
+</form>
+
 
 </body>
 </html>
