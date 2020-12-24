@@ -25,14 +25,12 @@ public class UserController extends HttpServlet {
 	// req와 res는 톰켓이 만들어줍니다. (클라이언트의 요청이 있을 때 마다)
 	// req는 BufferedReader 할 수 있는 ByteStream
 	// res는 BufferedWriter 할 수 있는 ByteStream
-
 	// http://localhost:8000/hello/front
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doProcess(request, response);
-
 	}
 
 	// post요청은 FORM태그 만들고 요청 = INSERT, DELETE, UPDATE
@@ -40,7 +38,6 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		doProcess(request, response);
 		System.out.println("comment post 요청");
-
 	}
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
@@ -49,7 +46,6 @@ public class UserController extends HttpServlet {
 		String gubun = request.getParameter("gubun"); // /hello/front
 		System.out.println(gubun);
 		route(gubun, request, response);
-
 	}
 
 	private void route(String gubun, HttpServletRequest request, HttpServletResponse response)
@@ -62,27 +58,12 @@ public class UserController extends HttpServlet {
 		} else if (gubun.equals("join")) {
 			response.sendRedirect("auth/join.jsp");
 		} else if (gubun.equals("selectOne")) { // 유저정보
-			// 인증이 필요한 페이지
-			String result;
-			HttpSession session = request.getSession();
-			if (session.getAttribute("sessionUser") != null) {
-				Users user = (Users) session.getAttribute("sessionUser");
-				result = "인증되었습니다.";
-				System.out.println("인증되었습니다.");
-				System.out.println(user);
-			} else {
-				result = "인증되지않았습니다.";
-				System.out.println("인증되지 않았습니다.");
-			}
-
-			request.setAttribute("result", result);
-			RequestDispatcher dis = request.getRequestDispatcher("user/selectOne.jsp");
-			dis.forward(request, response);
-
+			usersService.유저정보보기(request, response);
 		} else if (gubun.equals("updateOne")) {
-			response.sendRedirect("user/updateOne.jsp");
+			usersService.유저정보수정페이지(request, response);
 		} else if (gubun.equals("joinProc")) { // 회원가입 수행해줘
 			usersService.회원가입(request, response);
+			// 회원정보수정하기
 			
 			// 데이터 원형 username=ssar&password=1234&email=ssar@nate.com
 			// 1번 form의 input태그에 있는 3가지 값 username, password, email!! 받기!

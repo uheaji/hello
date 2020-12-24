@@ -56,4 +56,30 @@ public class UsersDao {
 		return null;
 
 	}
+	
+	public Users selectById(int id) {
+		String sql = "SELECT  id, password, username, email FROM users WHERE id = ? ";
+
+		Connection conn = DBConn.getInstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Users userEntity = Users.builder()
+						.id(rs.getInt("id"))
+						.password(rs.getString("password"))
+						.username(rs.getString("username"))
+						.email(rs.getString("email"))
+						.build();
+				return userEntity;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	
 }

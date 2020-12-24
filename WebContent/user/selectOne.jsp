@@ -4,13 +4,21 @@
     
 <%@ include file = "../layout/header.jsp" %>
 
-<h1>User info</h1>
-<%
-	String result = (String)request.getAttribute("result");
-%>
-<%= result %>
+<h1>회원정보 보기</h1>
+<table border = "1">
+<tr>
+<th>번호</th>
+<th>유저네임</th>
+<th>패스워드</th>
+<th>이메일</th>
+</tr>
+<tr>
+<td>${user.id}</td>
+<td>${user.username}</td>
+<td>${user.password}</td>
+<td>${user.email}</td>
+</tr>
+</table>
 
-<h1>${sessionScope.result}</h1>
-<h1>${result}</h1>
 </body>
 </html>
