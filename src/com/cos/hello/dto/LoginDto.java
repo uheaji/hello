@@ -1,10 +1,9 @@
-package dto;
+package com.cos.hello.dto;
 
 import lombok.Data;
 
 @Data
-public class JoinDto {
+public class LoginDto {
 	private String username;
 	private String password;
-	private String email;
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.cos.hello.model.Users;
 
-import dto.JoinDto;
+import com.cos.hello.dto.JoinDto;
 
 public class JoinFilter implements Filter{
 

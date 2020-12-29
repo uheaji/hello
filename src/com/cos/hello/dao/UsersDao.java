@@ -1,21 +1,15 @@
-package dao;
+package com.cos.hello.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.apache.catalina.User;
-import org.apache.catalina.connector.Response;
 
 import com.cos.hello.config.DBConn;
+import com.cos.hello.dto.JoinDto;
+import com.cos.hello.dto.LoginDto;
 import com.cos.hello.model.Users;
 
-import dto.JoinDto;
-import dto.LoginDto;
-
 public class UsersDao {
-
 	public int insert(JoinDto joinDto) {
 		StringBuffer sb = new StringBuffer(); // String 전용 컬렉션 (동기화)
 		sb.append("INSERT INTO users(username, password, email) ");
@@ -119,7 +113,4 @@ public class UsersDao {
 		}
 		return -1;
 	}
-
-	
-	
 }

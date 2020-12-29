@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.cos.hello.model.Users;
 
-import dto.LoginDto;
+import com.cos.hello.dto.LoginDto;
 
 public class LoginFilter implements Filter {
 
