@@ -11,9 +11,12 @@ import org.apache.catalina.connector.Response;
 import com.cos.hello.config.DBConn;
 import com.cos.hello.model.Users;
 
+import dto.JoinDto;
+import dto.LoginDto;
+
 public class UsersDao {
 
-	public int insert(Users user) {
+	public int insert(JoinDto joinDto) {
 		StringBuffer sb = new StringBuffer(); // String 전용 컬렉션 (동기화)
 		sb.append("INSERT INTO users(username, password, email) ");
 		sb.append("VALUES(?,?,?)");
@@ -22,9 +25,9 @@ public class UsersDao {
 		Connection conn = DBConn.getInstance();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUsername());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getEmail());
+			pstmt.setString(1, joinDto.getUsername());
+			pstmt.setString(2, joinDto.getPassword());
+			pstmt.setString(3, joinDto.getEmail());
 			int result = pstmt.executeUpdate(); // 변경된 행의 개수를 리턴
 			return result;
 		} catch (Exception e) {
@@ -33,14 +36,14 @@ public class UsersDao {
 		return -1;
 	}
 
-	public Users login(Users user) {
+	public Users login(LoginDto loginDto) {
 		String sql = "SELECT  id, username, email FROM users WHERE username = ? AND password = ? ";
 
 		Connection conn = DBConn.getInstance();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUsername());
-			pstmt.setString(2, user.getPassword());
+			pstmt.setString(1, loginDto.getUsername());
+			pstmt.setString(2, loginDto.getPassword());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				Users userEntity = Users.builder()

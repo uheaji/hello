@@ -14,22 +14,16 @@ import com.cos.hello.model.Users;
 import com.cos.hello.util.Script;
 
 import dao.UsersDao;
+import dto.JoinDto;
+import dto.LoginDto;
 
 public class UsersService {
 
 	public void 회원가입(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String username = request.getParameter("username");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-
-		Users user = Users.builder()
-				.username(username)
-				.password(password)
-				.email(email)
-				.build();
+		JoinDto joinDto = (JoinDto) request.getAttribute("joinDto");
 
 		UsersDao usersDao = new UsersDao(); // getInstance방식으로 바꾸기(싱글톤패턴)
-		int result = usersDao.insert(user);
+		int result = usersDao.insert(joinDto);
 
 		if (result == 1) {
 			// 3번 INSERT가 정상적으로 되었다면 index.jsp를 응답!!
@@ -40,14 +34,11 @@ public class UsersService {
 	}
 
 	public void 로그인(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 값을 받기
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-
-		Users user = Users.builder().username(username).password(password).build();
-
+	
+		LoginDto loginDto = (LoginDto) request.getAttribute("dto");
+		
 		UsersDao usersDao = new UsersDao();
-		Users userEntity = usersDao.login(user);
+		Users userEntity = usersDao.login(loginDto);
 
 		if (userEntity != null) {
 			HttpSession session = request.getSession();

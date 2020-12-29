@@ -11,24 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.cos.hello.model.Users;
 
-import dto.JoinDto;
+import dto.LoginDto;
 
-public class JoinFilter implements Filter{
+public class LoginFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
 		HttpServletRequest req = (HttpServletRequest)request;
 		String gubun = req.getParameter("gubun");
 		
-		if (gubun.equals("joinProc")) {
+		if (gubun.equals("loginProc")) {
 			if (req.getParameter("username") == null ||
 			 	req.getParameter("password") == null ||
-			 		req.getParameter("email") == null ||
 			 			req.getParameter("username").equals("")||
-			 			req.getParameter("password").equals("")||
-			 			req.getParameter("emai").equals("")
+			 			req.getParameter("password").equals("")
 			 		){
 			 			chain.doFilter(request, response);
 			 			return;
@@ -36,12 +33,11 @@ public class JoinFilter implements Filter{
 			
 			String username = req.getParameter("username");
 			String password = req.getParameter("password");
-			String email = req.getParameter("email");
+		
 			
-			JoinDto dto = new JoinDto();
+			LoginDto dto = new LoginDto();
 			dto.setUsername(username);
 			dto.setPassword(password);
-			dto.setEmail(email);
 			request.setAttribute("dto", dto );
 		}
 
@@ -50,5 +46,5 @@ public class JoinFilter implements Filter{
 			
 		
 	}
-	
+
 
