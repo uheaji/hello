@@ -9,7 +9,7 @@ public class Script {
 	
 	public static void back(HttpServletResponse response,  String msg) throws IOException {
 		PrintWriter out = response.getWriter();
-		response.setContentType("text/html;charset=utf-8");
+		
 		out.println("<script>");
 		out.println("alert('"+msg+"');");
 		out.println("history.back();");
@@ -18,8 +18,10 @@ public class Script {
 	}
 	
 	public static void href(HttpServletResponse response, String url, String msg) throws IOException {
+//		response.setHeader("content-type", "text/html;charset=utf-8");
+//		response.setContentType("text/html;charset=utf-8"); 필터
+		
 		PrintWriter out = response.getWriter();
-		response.setContentType("text/html;charset=utf-8");
 		out.println("<script>");
 		out.println("alert('"+msg+"');");
 		out.println("location.href = '"+url+"';");

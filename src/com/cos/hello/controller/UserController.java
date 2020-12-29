@@ -33,6 +33,9 @@ public class UserController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("UserController 실행됨");
+		//request.getParameter 함수 실행시에 파싱하기 때문에
+		// 파싱 전에 인코딩 해줘야 함.
+//		request.setCharacterEncoding("utf-8");
 		String gubun = request.getParameter("gubun"); // /hello/front
 		System.out.println("gubun"+gubun);
 		route(gubun, request, response);
@@ -40,6 +43,7 @@ public class UserController extends HttpServlet {
 
 	private void route(String gubun, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		
 		UsersService usersService = new UsersService();
 		
